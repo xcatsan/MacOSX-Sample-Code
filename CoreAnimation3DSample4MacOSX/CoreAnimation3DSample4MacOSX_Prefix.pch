@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'CoreAnimation3DSample4MacOSX' target in the 'CoreAnimation3DSample4MacOSX' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
