@@ -34,7 +34,7 @@
 
 - (void)awakeFromNib
 {
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(editingDidEnd:)
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(editingDidEnd:)
 	 												 name:NSControlTextDidEndEditingNotification object:nil];
 }
 
