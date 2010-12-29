@@ -107,6 +107,11 @@
 
 #pragma mark -
 #pragma mark Overridden methods
+- (void)setObjectClass:(Class)objectClass
+{
+	[super setObjectClass:objectClass];
+	self.keys = [self _propertyListOfClass:objectClass];
+}
 /*
 - (void)addObject:(id)object
 {
