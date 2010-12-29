@@ -20,41 +20,26 @@
 @synthesize undoManager = undoManager_;
 @synthesize keys = keys_;
 
-#pragma mark -
-#pragma mark Initialization and Deallocation
-- (void)_setup
-{
-	self.undoManager = [[[NSUndoManager alloc] init] autorelease];	
-}
-
-- (id) init
-{
-	self = [super init];
-	if (self != nil) {
-		[self _setup];
-	}
-	return self;
-}
-
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-	self = [super initWithCoder:aDecoder];
-	if (self != nil) {
-		[self _setup];
-	}
-	return self;
-}
-
-- (void) dealloc
-{
-	self.undoManager = nil;
-	[super dealloc];
-}
-
 
 #pragma mark -
 #pragma mark Private utilities
+- (NSArray*)_propertyListOfClass:(Class)clz
+{
+	NSMutableArray* list = [NSMutableArray array];
+	unsigned int outCount, i;
+	objc_property_t *properties = class_copyPropertyList(clz, &outCount);
+	
+	for(i = 0; i < outCount; i++) {
+		objc_property_t property = properties[i];
+		const char *propName = property_getName(property);
+		NSString *propertyName = [NSString stringWithUTF8String:propName];
+		[list addObject:propertyName];
+	}
+	free(properties);
+	return list;
+}
+
+
 - (void)_setArrangedObject:(id)object value:(id)value forKeyPath:(NSString*)keyPath
 {
 		// "<null>" -> NSNull
@@ -87,6 +72,40 @@
 }
 
 #pragma mark -
+#pragma mark Initialization and Deallocation
+- (void)_setup
+{
+	self.undoManager = [[[NSUndoManager alloc] init] autorelease];
+	self.keys = [self _propertyListOfClass:[self objectClass]];
+}
+
+- (id) init
+{
+	self = [super init];
+	if (self != nil) {
+		[self _setup];
+	}
+	return self;
+}
+
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+	if (self != nil) {
+		[self _setup];
+	}
+	return self;
+}
+
+- (void) dealloc
+{
+	self.undoManager = nil;
+	[super dealloc];
+}
+
+
+#pragma mark -
 #pragma mark Overridden methods
 /*
 - (void)addObject:(id)object
@@ -115,29 +134,11 @@
 }
 */
 
-- (NSArray*)_propertyListOf:(id)object
-{
-	NSMutableArray* list = [NSMutableArray array];
-	unsigned int outCount, i;
-	objc_property_t *properties = class_copyPropertyList([object class], &outCount);
-	
-	for(i = 0; i < outCount; i++) {
-		objc_property_t property = properties[i];
-		const char *propName = property_getName(property);
-		NSString *propertyName = [NSString stringWithUTF8String:propName];
-		[list addObject:propertyName];
-	}
-	free(properties);
-	return list;
-}
 
 - (void)_addObserverFor:(NSArray*)objects
 {
 	for (id object in objects) {
 		NSArray* keys = self.keys;
-		if (!keys) {
-			keys = [self _propertyListOf:object];
-		}
 		for (NSString* key in keys) {
 			[object addObserver:self
 					 forKeyPath:key
@@ -151,9 +152,6 @@
 {
 	for (id object in objects) {
 		NSArray* keys = self.keys;
-		if (!keys) {
-			keys = [self _propertyListOf:object];
-		}
 		for (NSString* key in keys) {
 			[object removeObserver:self
 						forKeyPath:key];
