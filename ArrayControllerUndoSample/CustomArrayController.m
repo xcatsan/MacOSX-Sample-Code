@@ -22,11 +22,16 @@
 
 #pragma mark -
 #pragma mark Initialization and Deallocation
+- (void)_setup
+{
+	self.undoManager = [[[NSUndoManager alloc] init] autorelease];	
+}
+
 - (id) init
 {
 	self = [super init];
 	if (self != nil) {
-		self.undoManager = [[[NSUndoManager alloc] init] autorelease];
+		[self _setup];
 	}
 	return self;
 }
@@ -34,9 +39,9 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	self = [super init];
+	self = [super initWithCoder:aDecoder];
 	if (self != nil) {
-		[self init];
+		[self _setup];
 	}
 	return self;
 }
@@ -71,7 +76,7 @@
                        context:(void *)context
 {
 	if (change) {
-			//		NSLog(@"keyPath: %@, change: %@", keyPath, change);
+				NSLog(@"keyPath: %@, change: %@", keyPath, change);
 		id value = [change objectForKey:NSKeyValueChangeOldKey];
 		if (value == [NSNull null]) {
 			value = nil;
@@ -128,7 +133,6 @@
 
 - (void)_addObserverFor:(NSArray*)objects
 {
-		// TODO checking dup addition
 	for (id object in objects) {
 		NSArray* keys = self.keys;
 		if (!keys) {
@@ -160,7 +164,6 @@
 
 - (void)insertObject:(id)object atArrangedObjectIndex:(NSUInteger)index
 {
-	NSLog(@"%@", [self content]);
 	if (!skipFlag_) {
 		[self _addObserverFor:[NSArray arrayWithObject:object]];
 			//		NSLog(@"info: %@", [object observationInfo]);

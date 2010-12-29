@@ -8,6 +8,7 @@
 
 #import "AppController.h"
 #import "CustomArrayController.h"
+#import "Book.h"
 
 @implementation AppController
 
@@ -23,7 +24,7 @@
 
 - (void)awakeFromNib
 {
-	arrayController_.keys = [NSArray arrayWithObjects:@"title", @"author",nil];
+		//	arrayController_.keys = [NSArray arrayWithObjects:@"title", @"author",nil];
 }
 
 @end
