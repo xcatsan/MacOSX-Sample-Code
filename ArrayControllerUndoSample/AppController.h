@@ -16,4 +16,7 @@
 	IBOutlet CustomArrayController* arrayController_;
 }
 
+- (IBAction)setSelection:(id)sender;
+- (IBAction)addSelection:(id)sender;
+
 @end

@@ -171,6 +171,18 @@
 	[super setContent:content];
 }
 
+- (void)addObject:(id)object
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, object);
+	[super addObject:object];
+}
+
+- (void)addObjects:(NSArray *)objects
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, objects);
+	[super addObjects:objects];
+}
+
 - (void)insertObject:(id)object atArrangedObjectIndex:(NSUInteger)index
 {
 	if (!skipFlag_) {
@@ -196,6 +208,16 @@
 	skipFlag_ = YES;
 	[super insertObjects:objects atArrangedObjectIndexes:indexes];
 	skipFlag_ = NO;
+}
+
+- (void)removeObject:(id)object
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, object);
+}
+
+- (void)removeObjects:(NSArray *)objects
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, objects);	
 }
 
 - (void)removeObjectAtArrangedObjectIndex:(NSUInteger)index
@@ -268,4 +290,60 @@
 
 
 	//----
+#pragma mark -
+#pragma mark Selection
+- (void)_registSelectionToUndo
+{
+	[[self.undoManager prepareWithInvocationTarget:self]
+	 setSelectionIndexes:[self selectionIndexes]];
+	
+}
+- (BOOL)setSelectionIndex:(NSUInteger)index
+{
+	BOOL result = [super setSelectionIndex:index];
+	if (result) {
+		[self _registSelectionToUndo];		
+	}
+	return result;
+}
+- (BOOL)setSelectionIndexes:(NSIndexSet *)indexes
+{
+	BOOL result =  [super setSelectionIndexes:indexes];
+	if (result) {
+		[self _registSelectionToUndo];		
+	}
+	return result;
+}
+- (BOOL)setSelectedObjects:(NSArray *)objects
+{
+	BOOL result =  [super setSelectedObjects:objects];
+	if (result) {
+		[self _registSelectionToUndo];		
+	}
+	return result;
+}
+- (BOOL)addSelectedObjects:(NSArray *)objects
+{
+	BOOL result = [super addSelectedObjects:objects];
+	if (result) {
+		[self _registSelectionToUndo];		
+	}
+	return result;
+}
+
+- (void)selectPrevious:(id)sender
+{
+	if ([self canSelectPrevious]) {
+		[self _registSelectionToUndo];
+	}
+	[super selectPrevious:sender];
+}
+- (void)selectNext:(id)sender
+{
+	if ([self canSelectNext]) {
+		[self _registSelectionToUndo];
+	}
+	[super selectNext:sender];
+}
+
 @end

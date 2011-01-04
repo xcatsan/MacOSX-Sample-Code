@@ -35,4 +35,17 @@
 		//	arrayController_.keys = [NSArray arrayWithObjects:@"title", @"author",nil];
 }
 
+- (IBAction)setSelection:(id)sender
+{
+	NSArray* arrangedObjects = [arrayController_ arrangedObjects];
+	[arrayController_ setSelectedObjects:[NSArray arrayWithObjects:[arrangedObjects objectAtIndex:2], [arrangedObjects objectAtIndex:4], nil]];
+}
+- (IBAction)addSelection:(id)sender
+{
+	NSIndexSet* indexSet = [arrayController_ selectionIndexes];
+	NSUInteger idx = [indexSet lastIndex]+1;
+	NSArray* arrangedObjects = [arrayController_ arrangedObjects];
+	[arrayController_ addSelectedObjects:[NSArray arrayWithObjects:[arrangedObjects objectAtIndex:idx], [arrangedObjects objectAtIndex:idx+1], nil]];
+}
+
 @end
