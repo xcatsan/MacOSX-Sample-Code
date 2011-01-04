@@ -346,4 +346,29 @@
 	[super selectNext:sender];
 }
 
+#pragma mark -
+#pragma mark Filtering Content
+- (void)setSortDescriptors:(NSArray *)sortDescriptors
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, sortDescriptors);
+	[[self.undoManager prepareWithInvocationTarget:self]
+	 setSortDescriptors:[self sortDescriptors]];
+	[super setSortDescriptors:sortDescriptors];
+}
+/*
+- (NSArray *)arrangeObjects:(NSArray *)objects
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, objects);
+	return objects;
+}
+- (void)setFilterPredicate:(NSPredicate *)filterPredicate
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, filterPredicate);
+}
+- (void)didChangeArrangementCriteria
+{
+		//  [self filterPredicate] => Nil
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__,[self automaticRearrangementKeyPaths]);
+}
+ */
 @end
