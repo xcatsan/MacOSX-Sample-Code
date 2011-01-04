@@ -165,6 +165,12 @@
 	
 }
 
+- (void)setContent:(id)content
+{
+	[self _addObserverFor:content];
+	[super setContent:content];
+}
+
 - (void)insertObject:(id)object atArrangedObjectIndex:(NSUInteger)index
 {
 	if (!skipFlag_) {
@@ -232,15 +238,23 @@
 
 #pragma mark -
 #pragma mark Undo / Redo
--(void)undo
+-(BOOL)undo
 {
-	NSLog(@"undo");
-	[self.undoManager undo];		
+	if ([self.undoManager canUndo]) {
+		[self.undoManager undo];
+		return YES;
+	} else {
+		return NO;
+	}
 }
--(void)redo
+-(BOOL)redo
 {
-	NSLog(@"redo");
-	[self.undoManager redo];		
+	if ([self.undoManager canRedo]) {
+		[self.undoManager redo];
+		return YES;
+	} else {
+		return NO;
+	}
 }
 
 -(IBAction)undo:(id)sender;
@@ -252,4 +266,6 @@
 	[self redo];
 }
 
+
+	//----
 @end

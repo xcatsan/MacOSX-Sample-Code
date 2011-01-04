@@ -18,8 +18,8 @@
 @property (nonatomic, retain, readonly) NSUndoManager* undoManager;
 @property (nonatomic, retain) NSArray* keys;
 
--(void)undo;
--(void)redo;
+-(BOOL)undo;
+-(BOOL)redo;
 
 -(IBAction)undo:(id)sender;
 -(IBAction)redo:(id)sender;

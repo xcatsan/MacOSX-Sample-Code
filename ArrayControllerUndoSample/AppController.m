@@ -17,7 +17,15 @@
 	self = [super init];
 	if (self != nil) {
 		array = [[NSMutableArray alloc] init];
-		NSLog(@"%@", array);
+		Book* book;
+		int i;
+		for (i=0; i < 10; i++) {
+			book = [[[Book alloc] init] autorelease];
+			book.title = [NSString stringWithFormat:@"TITLE-%02d", i];
+			book.author = [NSString stringWithFormat:@"AUTHOR-%02d", i];
+			[array addObject:book];
+		}
+		
 	}
 	return self;
 }
