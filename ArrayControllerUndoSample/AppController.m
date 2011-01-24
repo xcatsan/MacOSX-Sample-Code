@@ -48,4 +48,34 @@
 	[arrayController_ addSelectedObjects:[NSArray arrayWithObjects:[arrangedObjects objectAtIndex:idx], [arrangedObjects objectAtIndex:idx+1], nil]];
 }
 
+- (IBAction)undo:(id)sender
+{
+	[arrayController_ undo];
+}
+- (IBAction)redo:(id)sender
+{
+	[arrayController_ redo];
+	
+}
+
+#pragma mark -
+#pragma mark NSTableViewDelegate
+- (BOOL)tableView:(NSTableView *)tableView shouldReorderColumn:(NSInteger)columnIndex toColumn:(NSInteger)newColumnIndex
+{
+	NSLog(@"%s|reorder:%d, to:%d", __PRETTY_FUNCTION__, columnIndex, newColumnIndex);
+	return YES;
+}
+
+- (void)tableView:(NSTableView *)tableView didDragTableColumn:(NSTableColumn *)tableColumn
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, tableColumn);
+}
+- (void)tableViewColumnDidMove:(NSNotification *)aNotification
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, aNotification);
+}
+- (void)tableViewColumnDidResize:(NSNotification *)aNotification
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, aNotification);
+}
 @end

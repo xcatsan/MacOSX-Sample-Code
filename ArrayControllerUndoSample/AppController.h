@@ -12,11 +12,14 @@
 @interface AppController : NSObject {
 
 	NSMutableArray* array;
-	
+
 	IBOutlet CustomArrayController* arrayController_;
+	IBOutlet NSTableView* tableView_;
 }
 
 - (IBAction)setSelection:(id)sender;
 - (IBAction)addSelection:(id)sender;
+- (IBAction)undo:(id)sender;
+- (IBAction)redo:(id)sender;
 
 @end
