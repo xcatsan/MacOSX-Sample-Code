@@ -11,6 +11,11 @@
 
 @interface CustomHeaderCell : NSTableHeaderCell {
 
+	BOOL _ascending;
+	NSInteger _priority;
 }
+
+- (id)initWithCell:(NSTableHeaderCell*)cell;
+- (void)setSortAscending:(BOOL)ascending priority:(NSInteger)priority;
 
 @end

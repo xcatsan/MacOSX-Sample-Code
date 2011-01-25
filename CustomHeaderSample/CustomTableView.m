@@ -15,8 +15,7 @@
 {
 	for (NSTableColumn* column in [self tableColumns]) {
 		NSTableHeaderCell* cell = [column headerCell];
-		CustomHeaderCell* newCell = [[CustomHeaderCell alloc] init];
-		[newCell setAttributedStringValue:[cell attributedStringValue]];
+		CustomHeaderCell* newCell = [[CustomHeaderCell alloc] initWithCell:cell];
 		[column setHeaderCell:newCell];
 		[newCell release];
 	}
