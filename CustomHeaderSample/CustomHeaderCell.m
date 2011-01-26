@@ -38,7 +38,7 @@
 	
 }
 
-- (void)_drawInRect:(NSRect)rect hilighted:(BOOL)hilighted
++ (void)drawBackgroundInRect:(NSRect)rect hilighted:(BOOL)hilighted
 {
 	CGFloat delta = hilighted ? -0.1 : 0;
 	NSArray* colorArray = [NSArray arrayWithObjects:
@@ -74,7 +74,13 @@
 	[gc restoreGraphicsState];
 	
 	
-	// [2] draw string
+}
+
+
+- (void)_drawInRect:(NSRect)rect hilighted:(BOOL)hilighted
+{
+	[CustomHeaderCell drawBackgroundInRect:rect hilighted:hilighted];
+
 	NSRect stringFrame = rect;
 	if (_priority == 0) {
 		stringFrame.size.width -= TRIANGLE_WIDTH;

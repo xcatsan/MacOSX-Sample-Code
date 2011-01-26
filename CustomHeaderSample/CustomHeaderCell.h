@@ -18,4 +18,6 @@
 - (id)initWithCell:(NSTableHeaderCell*)cell;
 - (void)setSortAscending:(BOOL)ascending priority:(NSInteger)priority;
 
++ (void)drawBackgroundInRect:(NSRect)rect hilighted:(BOOL)hilighted;
+
 @end

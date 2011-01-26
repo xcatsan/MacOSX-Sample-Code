@@ -8,6 +8,7 @@
 
 #import "CustomTableView.h"
 #import "CustomHeaderCell.h"
+#import "CustomCornerView.h"
 
 @implementation CustomTableView
 
@@ -21,16 +22,23 @@
 	}
 	
 }
+- (void)_setupCornerView
+{
+	NSView* cornerView = [self cornerView];
+	CustomCornerView* newCornerView =
+		[[CustomCornerView alloc] initWithFrame:cornerView.frame];
+	[self setCornerView:newCornerView];
+	[newCornerView release];
+}
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	NSLog(@"%s|%@", __PRETTY_FUNCTION__, nil);
-	
 	self = [super initWithCoder:aDecoder];
 	
 	if (self) {
 		[self _setupHeaderCell];
+		[self _setupCornerView];
 	}
 	return self;
 }
