@@ -7,6 +7,7 @@
 //
 
 #import "CustomHeaderSampleAppDelegate.h"
+#import "CustomHeaderCell.h"
 
 @implementation CustomHeaderSampleAppDelegate
 
@@ -34,5 +35,37 @@
 	}
 	return self;
 }
+
+- (IBAction)button:(id)sender
+{
+	for (NSTableColumn* column in [tableView_ tableColumns]) {
+		
+		NSLog(@"%s|%@", __PRETTY_FUNCTION__, [column sortDescriptorPrototype]);
+	}
+}
+
+#pragma mark -
+#pragma mark NSTableViewDelegate
+- (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn
+{
+	CustomHeaderCell* cell = nil;
+	BOOL ascending;
+	NSInteger priority;
+	
+	for (NSTableColumn* column in [tableView tableColumns]) {
+		
+		cell  = (CustomHeaderCell*)[column headerCell];
+		
+		if (column == tableColumn) {
+			ascending = [[[arrayController_ sortDescriptors] objectAtIndex:0] ascending];
+			priority = 0;
+		} else {
+			priority = 1;
+		}
+		
+		[cell setSortAscending:ascending priority:priority];
+	}
+}
+
 
 @end

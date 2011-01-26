@@ -8,15 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CustomHeaderSampleAppDelegate : NSObject <NSApplicationDelegate> {
+@interface CustomHeaderSampleAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate> {
     NSWindow *window;
 
-	IBOutlet NSArrayController* arrayController;
-	IBOutlet NSTableView* tableView;
+	IBOutlet NSArrayController* arrayController_;
+	IBOutlet NSTableView* tableView_;
 	
 	NSMutableArray* list;
 }
 
 @property (assign) IBOutlet NSWindow *window;
+
+- (IBAction)button:(id)sender;
 
 @end

@@ -89,12 +89,19 @@
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
 	[self _drawInRect:cellFrame hilighted:NO];
-	
+	[self drawSortIndicatorWithFrame:cellFrame
+							  inView:controlView
+						   ascending:_ascending
+							priority:_priority];
 }
 
 - (void)highlight:(BOOL)flag withFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
 	[self _drawInRect:cellFrame hilighted:YES];
+	[self drawSortIndicatorWithFrame:cellFrame
+							  inView:controlView
+						   ascending:_ascending
+							priority:_priority];
 }
 
 
