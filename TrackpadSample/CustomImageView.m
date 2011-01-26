@@ -18,15 +18,11 @@
     newSize.width = self.frame.size.width * ([event magnification] + 1.0);
     [self setFrameSize:newSize];
 }
-/*
+
 - (void)rotateWithEvent:(NSEvent *)event {
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, event);
     [self setBoundsRotation:([self boundsRotation] + [event rotation]*2)];
 	[self setNeedsDisplay:YES];
 }
 
-- (void)swipeWithEvent:(NSEvent *)event
-{
-	NSLog(@"%s|%@", __PRETTY_FUNCTION__, event);
-}
- */
 @end
