@@ -10,6 +10,10 @@
 
 @implementation CustomImageView
 
+- (void)awakeFromNib{
+	[self setAcceptsTouchEvents:YES];
+}
+/*
 - (void)magnifyWithEvent:(NSEvent *)event {
 	NSLog(@"%s|%@", __PRETTY_FUNCTION__, event);
 
@@ -25,4 +29,30 @@
 	[self setNeedsDisplay:YES];
 }
 
+- (void)swipeWithEvent:(NSEvent *)event {
+ NSLog(@"%s|%@", __PRETTY_FUNCTION__, event);
+}
+ */
+
+
+- (void)touchesBeganWithEvent:(NSEvent *)event
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, event);
+	[super touchesBeganWithEvent:event];
+}
+- (void)touchesMovedWithEvent:(NSEvent *)event
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, event);
+	[super touchesMovedWithEvent:event];
+}
+- (void)touchesEndedWithEvent:(NSEvent *)event
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, event);
+	[super touchesEndedWithEvent:event];
+}
+- (void)touchesCancelledWithEvent:(NSEvent *)event
+{
+	NSLog(@"%s|%@", __PRETTY_FUNCTION__, event);
+	[super touchesCancelledWithEvent:event];
+}
 @end
